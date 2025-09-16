@@ -1,0 +1,165 @@
+<!doctype html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="styles.css" rel="stylesheet">
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-batman">
+<div class="container-fluid">
+<a class="navbar-brand d-flex align-items-center" href="#">
+<img src="image/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+Bat-Archivio
+</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="mainNavbar">
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">BatCaverna</a></li>
+<li class="nav-item"><a class="nav-link" href="#">Missioni</a></li>
+<li class="nav-item"><a class="nav-link" href="#">G.C.P.D.</a></li>
+</ul>
+<div class="d-flex gap-2">
+<button id="btn-login" class="btn btn-outline-warning">Login</button>
+<button id="btn-logout" class="btn btn-outline-warning">Logout</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="container my-4 flex-grow-1">
+<section class="p-5 mb-4 rounded-3 hero-fade" style="background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url('image/gotham.webp') center/cover no-repeat; border:1px solid rgba(255, 235, 59, 0.25); box-shadow: 0 8px 24px rgba(255, 235, 59, 0.15)">
+<div class="container-fluid py-2">
+<h1 class="display-6 text-warning mb-2">Bat-Manager</h1>
+<p class="col-md-10 fs-6 text-light mb-3">Una folle città in un folle mondo...</p>
+<a href="#" class="btn btn-warning btn-sm">Inizia ora</a>
+</div>
+</section>
+<form class="row g-2 align-items-end mb-3">
+<div class="col-12 col-md-7">
+<input id="task-title" name="title" type="text" class="form-control" placeholder="Aggiungi una nuova attività…" required />
+</div>
+<div class="col-6 col-md-3">
+<input id="task-date" name="due" type="date" class="form-control" />
+</div>
+<div class="col-6 col-md-2 d-grid">
+<button type="submit" class="btn btn-warning" aria-label="Aggiungi attività">Aggiungi</button>
+</div>
+</form>
+<header class="mb-3">
+<div class="toolbar" role="group" aria-label="Filtri e Ordinamento">
+<div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+<button class="chip is-active" data-filter="all">Tutte</button>
+<button class="chip" data-filter="active">Attive</button>
+<button class="chip" data-filter="completed">Completate</button>
+</div>
+<div class="d-flex flex-wrap gap-2 align-items-center">
+<label class="form-label text-light mb-0">Ordina per:</label>
+<select id="sortBy" class="form-select form-select-sm" style="width: auto;">
+<option value="createdAt">Data Creazione</option>
+<option value="due">Data Scadenza</option>
+<option value="title">Titolo</option>
+<option value="status">Stato</option>
+</select>
+<select id="sortOrder" class="form-select form-select-sm" style="width: auto;">
+<option value="desc">Decrescente</option>
+<option value="asc">Crescente</option>
+</select>
+</div>
+</div>
+</header>
+
+<section class="list" aria-live="polite">
+<ul id="task-list" class="task-list"></ul>
+</section>
+
+<section class="my-4">
+<div class="card bg-dark text-light">
+<div class="card-header">Gestione personaggi di Batman</div>
+<div class="card-body">
+<div class="row g-2 mb-3">
+<div class="col-12 col-md-6">
+<input id="char-search" type="search" class="form-control" placeholder="Cerca per nome o alias..." />
+</div>
+</div>
+<form id="char-form" class="row g-2 mb-3">
+<div class="col-12 col-md-4">
+<input id="char-name" type="text" class="form-control" placeholder="Nome" required />
+</div>
+<div class="col-12 col-md-3">
+<input id="char-alias" type="text" class="form-control" placeholder="Alias (es. Batman)" />
+</div>
+<div class="col-12 col-md-3">
+<input id="char-image" type="url" class="form-control" placeholder="URL immagine (opzionale)" />
+</div>
+<div class="col-12 col-md-2">
+<select id="char-role" class="form-select">
+<option value="Eroe">Eroe</option>
+<option value="Villain">Villain</option>
+<option value="Alleato">Alleato</option>
+</select>
+</div>
+<div class="col-12 col-md-2 d-grid">
+<button id="btn-add-char" type="submit" class="btn btn-warning">Aggiungi</button>
+</div>
+</form>
+
+<div class="row g-3">
+<div class="col-12 col-lg-6">
+<div class="characters-section">
+<h4 class="text-warning mb-3">Eroi</h4>
+<div id="char-heroes-container" class="characters-grid"></div>
+</div>
+</div>
+<div class="col-12 col-lg-6">
+<div class="characters-section">
+<h4 class="text-warning mb-3">Villain</h4>
+<div id="char-villains-container" class="characters-grid"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="app__footer mt-auto py-3">
+<div class="stats" id="stats" aria-live="polite"></div>
+
+<!-- Controllo tipo di archiviazione -->
+<div class="mb-3 ms-3 me-auto">
+<label for="storageTypeSelect" class="form-label text-warning mb-1">Scegli tipo archiviazione:</label>
+<select id="storageTypeSelect" class="form-select form-select-sm" style="width: 140px;">
+  <option value="array">Array</option>
+  <option value="map">Map</option>
+</select>
+</div>
+
+<div class="actions d-flex flex-wrap gap-2">
+<button id="mark-all-btn" class="btn btn-outline-warning btn-sm">Marca Tutti</button>
+<button id="clear-completed" class="btn btn-outline-warning btn-sm">Pulisci Completate</button>
+<button id="clear-all-btn" class="btn btn-outline-danger btn-sm">Cancella Tutti</button>
+<button id="export-json" class="btn btn-outline-warning btn-sm">Esporta JSON</button>
+<label for="import-json" class="btn btn-outline-warning btn-sm">Importa JSON</label>
+<input id="import-json" type="file" accept="application/json" hidden />
+</div>
+</footer>
+</main>
+
+<template id="task-item-template">
+<li class="task" data-id="">
+<label class="task__checkbox">
+<input type="checkbox" class="task__toggle" />
+<span class="check"></span>
+</label>
+<div class="task__content">
+<input class="task__title" type="text" value="" aria-label="Titolo attività" />
+<input class="task__date" type="date" aria-label="Scadenza" />
+</div>
+<div class="task__actions">
+<button class="icon-btn edit" title="Modifica" aria-label="Modifica">✎</button>
+<button class="icon-btn delete" title="Elimina" aria-label="Elimina">🗑</button>
+</div>
+</li>
+</template>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script type="module" src="dist/app.js"></script>
+</body>
+</html>

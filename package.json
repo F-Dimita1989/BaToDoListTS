@@ -1,0 +1,20 @@
+{
+  "name": "batman-todo-app",
+  "version": "1.0.0",
+  "description": "Applicazione Todo con gestione personaggi Batman",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "tsc --watch & live-server --port=3000",
+    "start": "live-server --port=3000"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "live-server": "^1.2.2",
+    "@types/node": "^20.10.0"
+  },
+  "keywords": ["typescript", "todo", "batman", "web-app"],
+  "author": "",
+  "license": "MIT"
+}
